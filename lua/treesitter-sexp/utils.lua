@@ -34,7 +34,7 @@ function M.get_valid_nodes(pred, comp, capture_names, opts)
   end
 
   local nodes = {}
-  for _, match in query:iter_matches(node, 0, start, stop, { max_start_depth = opts.max_start_depth }) do
+  for _, match in query:iter_matches(node, 0, start, stop, { max_start_depth = opts.max_start_depth, all = false }) do
     for id, cnode in pairs(match) do
       local name = query.captures[id]
       if
@@ -65,7 +65,7 @@ function M.get_valid_forms(pred, comp)
 
   local cursor_pos = vim.api.nvim_win_get_cursor(0)
   local forms = {}
-  for _, match in query:iter_matches(root, 0, cursor_pos[1] - 1, cursor_pos[1]) do
+  for _, match in query:iter_matches(root, 0, cursor_pos[1] - 1, cursor_pos[1], { all = false }) do
     local result = {}
     for id, cnode in pairs(match) do
       local name = query.captures[id]
